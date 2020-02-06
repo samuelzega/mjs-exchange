@@ -1,7 +1,7 @@
 const { User } = require('../models/index')
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
-const helper = require('../helpers/jwt')
+const jwt = require('../helpers/jwt')
 // console.log(User)
 
 module.exports = class {
@@ -51,5 +51,37 @@ module.exports = class {
                 }
             })
             .catch(next)
+    }
+
+    static googleLogin(req, res, next){
+        User
+            .findOne({
+                where: {
+                    email: req.payload.email
+                }
+            })
+            .then(user => {
+                if(!user){
+                    return User.create({
+                        username: req.payload.name,
+                        email: req.payload.email,
+                        password: process.env.PASSWORD_DEFAULT
+                    })
+                } else {
+                    return user
+                }
+            })
+            .then(user => {
+                let payload = {
+                    id: user.id,
+                    email: user.email
+                }
+                
+                let token = jwt.generateToken(payload)
+                res.status(200).json(token)
+            })
+            .catch(err => {
+                res.status(500).json(err)
+            })
     }
 }
