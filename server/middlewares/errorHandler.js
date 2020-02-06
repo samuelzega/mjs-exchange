@@ -1,0 +1,21 @@
+function clientErrorHandler (err, req, res, next){
+    try {
+        console.log(err)
+        if(err.name == 'SequelizeDatabaseError'){
+            next(err)
+        } else {
+            res
+                .status(err.statusCode || 400)
+                .json({ errors: err.message.split('\n') })
+        }
+    }
+    catch(err){
+        next(err)
+    }
+}
+
+function serverErrorHandler(err, req, res, next){
+    res.status(500).json({ message: 'Server currently unable to handle this request'})
+}
+
+module.exports = { clientErrorHandler, serverErrorHandler }
