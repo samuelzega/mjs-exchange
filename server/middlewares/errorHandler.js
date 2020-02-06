@@ -1,5 +1,6 @@
 function clientErrorHandler (err, req, res, next){
     try {
+        console.log(err)
         if(err.name == 'SequelizeDatabaseError'){
             next(err)
         } else {
