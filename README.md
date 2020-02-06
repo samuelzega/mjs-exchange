@@ -1,9 +1,18 @@
 # MJS-Exchange-API
 
 ------
+## Table of Content
 
-[toc]
-
+- **MJS-Exchange-API**
+  - [Base URL](#base-url--httplocalhost3000)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [List of Routes User](#list-of-routes-user)
+  - [List of Errors](#list-of-errors)
+  - **Endpoints**
+    - [Login](#post-login)
+    - [Register](#post-register)
+    - [Change Password](#patch-change-password)
 ------
 
 #### **Base URL :** `http://localhost:3000`
