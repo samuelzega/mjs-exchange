@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const { Model } = sequelize.Sequelize
 
-  class User extends Model {}
+  class User extends Model { }
 
   User.init(
     {
@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       sequelize
     }
   )
-  User.associate = function(models) {
-    // associations can be defined here
+  User.associate = function (models) {
+    User.hasMany(models.Favorite)
   }
   return User
 }
