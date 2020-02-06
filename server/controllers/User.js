@@ -45,7 +45,7 @@ module.exports = class {
                     }
 
                     let token = generateToken(result)
-                    res.status(200).json({ token })
+                    res.status(200).json({ email:user.email, token })
                 } else {
                     next(createError(400, 'Incorrect Username or Password'))
                 }
@@ -78,7 +78,7 @@ module.exports = class {
                 }
 
                 let token = generateToken(payload)
-                res.status(200).json(token)
+                res.status(200).json({ email:user.email, token })
             })
             .catch(err => {
                 res.status(500).json(err)
@@ -105,8 +105,8 @@ module.exports = class {
                     throw createError(400, 'Incorrect Username or Password')
                 }
             })
-            .then(patched => {
-                res.status(200).json(patched)
+            .then(({ name, email }) => {
+                res.status(200).json({ name, email })
             })
             .catch(next)
     }

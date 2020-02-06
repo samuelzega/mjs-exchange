@@ -1,17 +1,47 @@
 # MJS-Exchange-API
 
-**Base URL :** `http://localhost:3000`
+------
 
-**List of Routes User:**
+[toc]
 
-| **Route**       | **HTTP** | **Description**                                     |
-| --------------- | -------- | --------------------------------------------------- |
-| /register       | POST     | Sign up new user                                    |
-| /login          | POST     | Log in and get an access token based on credentials |
-| /google/login   | POST     | Sign in with OAuth 2.0 Google                       |
-| /changepassword | PATCH    | Assign new password for user                        |
+------
 
-**List of Errors:**
+#### **Base URL :** `http://localhost:3000`
+
+#### **Installation:**
+
+Clone this API from repository and install npm, then on `server` directory install the neccessary npm package
+
+```
+$ git clone https://github.com/samuelzega/mjs-exchange.git
+$ npm install
+$ cd ../server && npm install
+```
+
+#### **Usage:**
+
+Run script from packages by using the command below
+
+```
+$ npm run dev
+```
+
+Run code below on `client` directory to initiate `client` host
+
+```
+$ live-server --host=localhost
+```
+
+#### **List of Routes User:**
+
+| **Route**        | **HTTP** | **Description**                                     |
+| ---------------- | -------- | --------------------------------------------------- |
+| /register        | POST     | Sign up new user                                    |
+| /login           | POST     | Log in and get an access token based on credentials |
+| /google/login    | POST     | Sign in with OAuth 2.0 Google                       |
+| /change-password | PATCH    | Assign new password for user                        |
+
+#### **List of Errors:**
 
 | **Code** | **Name**              | **Description**                                |
 | -------- | --------------------- | ---------------------------------------------- |
@@ -21,7 +51,7 @@
 
 
 
-## POST Login
+### **POST Login**
 
 ------
 
@@ -31,190 +61,12 @@
 
 - **Description:** `Log in and get an access token based on credentials`
 
-- **Success Response:**
-
-  - **Status:** `200`
-
-    ```javascript
-    [
-        {
-            "id": 1,
-            "title": "Learn REST API",
-            "description: "Learn how to create RESTful API with Express and Sequelize",
-            "due_date": "2020-01-20",
-        },
-        {
-            "id": 2,
-            "title": "CRUD for Todo webapps",
-            "description": "Learn how to create CRUD for Todo",
-            "status": "incomplete",
-            "due_date": "2020-1-1",
-        },
-    ]
-    ```
-
-- **Error Response:**
-
-  - **Status:** `500`
-
-    ```javascript
-    {
-        "msg": "Server currently unable to handle this request"
-    }
-    ```
-
-
-
-## POST To-do
-
-------
-
-- **URL:** `/todos`
-
-- **Method:** `POST`
-
-- **Description:** `Create new task on user to-do list`
-
-- **Request header:** 
-
-  ```javascript
-  {
-      "Content-Type": "application/json"
-  }
-  ```
-
-- **Request body:**
-
-  By default, attributes status in to-do will be `incomplete`. The accepted value for status are `completed` and `incomplete`
-
-  ```javascript
-  {
-      "title": "Learn REST API",
-      "description": "Learn how to create RESTful API with Express and Sequelize",
-      "due_date": "2020-01-29"
-  }
-  ```
-
-- **Success Response:**
-
-  - **Status:** `201`
-
-    ```javascript
-    {
-        "id": 1,
-        "title": "Learn REST API",
-        "description: "Learn how to create RESTful API with Express and Sequelize",
-        "due_date": "2020-01-20",
-        "updatedAt": "2020-02-03T13:31:50.969Z",
-        "createdAt": "2020-02-03T13:31:50.969Z"
-    }
-    ```
-
-- **Error Response:**
-
-  - **Status:** `400`
-
-    ```javascript
-    [
-        "Validation error: Please input todo title,",
-        "Validation error: Please input todo description"
-    ]
-    ```
-
-  - **Status:** `500`
-
-    ```javascript
-    {
-        "msg": "Server currently unable to handle this request"
-    }
-    ```
-
-    
-
-## GET To-do by ID
-
-------
-
-- **URL:** `/todos/:id`
-
-- **Method:** `GET`
-
-- **Description:** `Show user task from to-do filtered by id`
-
-- **URL Params:** 
-
-  ```javascript
-  "id": string, required
-  ```
-
-- **Success Response:**
-
-  - **Status:** `201`
-
-    ```javascript
-    {
-        "id": 1,
-        "title": "Get Task",
-        "description": "show task by id",
-        "status": "incomplete",
-        "due_date": "2020-1-1",
-        "createdAt": "2020-02-03T13:30:48.501Z",
-        "updatedAt": "2020-02-03T13:30:48.501Z"
-    }
-    ```
-
-- **Error Response:**
-
-  - **Status:** `404`
-
-    ```javascript
-    [
-        "Error! Data not found"
-    ]
-    ```
-
-  - **Status:** `500`
-
-    ```javascript
-    {
-        "msg": "Server currently unable to handle this request"
-    }
-    ```
-
-  
-
-## PUT To-do
-
-------
-
-- **URL:** `/todos/:id`
-
-- **Method:** `PUT`
-
-- **Description:** `Update user task from to-do by id`
-
-- **URL Params:** 
-
-  ```javascript
-  "id": string, required
-  ```
-
-- **Request header:** 
-
-  ```javascript
-  {
-      "Content-Type": "application/json"
-  }
-  ```
-
 - **Request body:**
 
   ```javascript
   {
-      "title": "Update to-do list",
-      "description": "Updated",
-      "status": 'completed',
-      "due_date": "2020-01-29"
+      "email": "email@domain.com", //required
+      "password": "password" //required
   }
   ```
 
@@ -224,13 +76,8 @@
 
     ```javascript
     {
-        "id": 2,
-        "title": "Updated",
-        "description": "update",
-        "status": "completed",
-        "due_date": "2020-07-05T12:45:09.000Z",
-        "createdAt": "2020-02-03T13:31:32.175Z",
-        "updatedAt": "2020-02-03T14:52:50.659Z"
+        "email": "email@domain.com",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QuaWQiLCJpYXQiOjE1ODEwMTUyMTl9.OQYDBjJ0VvAAm7fsXVqKZBg8ZFt4mEdM50wOBih4DlQ"
     }
     ```
 
@@ -240,47 +87,91 @@
 
     ```javascript
     {
-        [
-            "Validation error: Please input todo title,",
-            "Validation error: Please input todo description"
+        "errors": [
+            "Incorrect Username or Password"
         ]
     }
     ```
 
-  - **Status:** `404`
+  - **Status:** `500`
 
     ```javascript
-    [
-        "Error! Data not found"
-    ]
+    {
+        "errors": "Server currently unable to handle this request"
+    }
+    ```
+
+### **POST Register**
+
+------
+
+- **URL:** `/register`
+
+- **Method:** `POST`
+
+- **Description:** `Sign up new user`
+
+- **Request body:**
+
+  ```javascript
+  {
+      "name": "user", //required
+      "email": "email@domain.com", //required
+      "password": "password" //required
+  }
+  ```
+
+- **Success Response:**
+
+  - **Status:** `201`
+
+    ```javascript
+    {
+        "name": "user",
+        "email": "email@domain.com"
+    }
+    ```
+
+- **Error Response:**
+
+  - **Status:**`400`
+
+    ```javascript
+    {
+        "errors": [
+            "Email already exist"
+        ]
+    }
     ```
 
   - **Status:** `500`
 
     ```javascript
     {
-        "msg": "Server currently unable to handle this request"
+        "errors": "Server currently unable to handle this request"
     }
     ```
 
 
-
-## DELETE To-do
+### **PATCH Change Password**
 
 ------
 
-- **URL:** `/todos/:id`
+- **URL:** `/change-password`
 
-- **Method:** `DELETE`
+- **Method:** `PATCH`
 
-- **Description:** `Delete user task from to-do by id`
+- **Description:** `Assign new password for user`
 
-- **URL Params:** 
+- **Request body:**
 
   ```javascript
-  "id": string, required
+  {
+      "email": "email@domain.com", //required
+      "password": "password" //required
+      "newPassword": 'newpassword' //required
+  }
   ```
-
 
 - **Success Response:**
 
@@ -288,13 +179,8 @@
 
     ```javascript
     {
-        "id": 3,
-        "title": "Deleted Task",
-        "description": "deleted",
-        "status": "completed",
-        "due_date": "2020-1-29",
-        "createdAt": "2020-02-03T13:31:50.969Z",
-        "updatedAt": "2020-02-03T13:31:50.969Z"
+        "name": "test",
+        "email": "test@test.id"
     }
     ```
 
@@ -303,17 +189,18 @@
   - **Status:** `404`
 
     ```javascript
-    [
-        "Error! Data not found"
-    ]
+    {
+        "errors": [
+            "Incorrect Username or Password"
+        ]
+    }
     ```
 
   - **Status:** `500`
 
     ```javascript
     {
-        "msg": "Server currently unable to handle this request"
+        "errors": "Server currently unable to handle this request"
     }
     ```
 
-  
