@@ -91,7 +91,7 @@ module.exports = class {
     }
 
     static changePassword(req, res, next){
-        let { email, password } = req.body
+        let { email, password, newPassword } = req.body
         User
             .findOne({
                 where: {
@@ -100,10 +100,18 @@ module.exports = class {
             })
             .then(user => {
                 if(user && bcrypt.compareSync(password, user.password)){
+                    let hash = bcrypt.hashSync(newPassword, 10);
+                    newPassword = hash
 
+                    return user.update({
+                        password: newPassword
+                    })
                 } else {
-                    next(createError(404, 'User not found'))
+                    throw createError(404, 'User not found')
                 }
+            })
+            .then(patched => {
+                res.status(200).json(patched)
             })
             .catch(next)
     }
