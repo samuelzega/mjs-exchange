@@ -2,7 +2,12 @@ const { User } = require('../models/index')
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
 const jwt = require('../helpers/jwt')
+const axios = require('axios')
 // console.log(User)
+
+const stockNews = axios.create({
+    baseURL: 'https://api.unibit.ai/v2/company/news?accessKey=Lg52XqLLk8BxcVkT_lDGRlcPncjCISgM&',
+});
 
 
 module.exports = class {
@@ -87,7 +92,11 @@ module.exports = class {
     }
 
     static findNews(req, res, next){
-        const baseUrl = `https://api.unibit.ai/v2/company/news?`
-        accessKey = `${process.env.API_KEY_NEWS}`
+        stockNews
+            .get(`tickers=AAPL`)
+            .then(result => {
+                console.log(result)
+                res.status(200).json(result)
+            })
     }
 }
