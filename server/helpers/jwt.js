@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken')
 
-function verify(payload){
+function verify(payload) {
     return jwt.verify(payload, process.env.SECRET_KEY)
 }
 
-function generateToken(payload){
+function generateToken(payload) {
     return jwt.sign(payload, process.env.SECRET_KEY)
 }
 

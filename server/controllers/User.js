@@ -6,7 +6,6 @@ const jwt = require('../helpers/jwt')
 
 module.exports = class {
     static register(req, res, next) {
-        // console.log(req.body)
         let { email, password, name } = req.body
 
         User
@@ -16,7 +15,7 @@ module.exports = class {
                 }
             })
             .then(user => {
-                if(user){
+                if (user) {
                     throw createError(400, 'Email already exist')
                 } else {
                     return User.create({ email, password, name })
@@ -38,14 +37,14 @@ module.exports = class {
                 }
             })
             .then(user => {
-                if(user && bcrypt.compareSync(password, user.password)){
+                if (user && bcrypt.compareSync(password, user.password)) {
                     let result = {
                         id: user.id,
                         email: user.email
                     }
 
                     let token = helper.generateToken(result)
-                    res.status(200).json( { token })
+                    res.status(200).json({ token })
                 } else {
                     next(createError(404, 'Incorrect Username or Password'))
                 }
@@ -53,7 +52,7 @@ module.exports = class {
             .catch(next)
     }
 
-    static googleLogin(req, res, next){
+    static googleLogin(req, res, next) {
         User
             .findOne({
                 where: {
@@ -61,7 +60,7 @@ module.exports = class {
                 }
             })
             .then(user => {
-                if(!user){
+                if (!user) {
                     return User.create({
                         username: req.payload.name,
                         email: req.payload.email,
@@ -76,7 +75,7 @@ module.exports = class {
                     id: user.id,
                     email: user.email
                 }
-                
+
                 let token = jwt.generateToken(payload)
                 res.status(200).json(token)
             })
