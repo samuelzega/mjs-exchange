@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('../helpers/jwt')
 // console.log(User)
 
+
 module.exports = class {
     static register(req, res, next) {
         // console.log(req.body)
@@ -44,7 +45,7 @@ module.exports = class {
                         email: user.email
                     }
 
-                    let token = helper.generateToken(result)
+                    let token = jwt.generateToken(result)
                     res.status(200).json( { token })
                 } else {
                     next(createError(404, 'Incorrect Username or Password'))
@@ -83,5 +84,10 @@ module.exports = class {
             .catch(err => {
                 res.status(500).json(err)
             })
+    }
+
+    static findNews(req, res, next){
+        const baseUrl = `https://api.unibit.ai/v2/company/news?`
+        accessKey = `${process.env.API_KEY_NEWS}`
     }
 }
