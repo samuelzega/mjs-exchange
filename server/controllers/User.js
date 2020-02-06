@@ -1,8 +1,14 @@
 const { User } = require('../models/index')
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
-const jwt = require('../helpers/jwt')
+const { generateToken } = require('../helpers/jwt')
+const axios = require('axios')
 // console.log(User)
+
+const stockNews = axios.create({
+    baseURL: 'https://api.unibit.ai/v2/company/news?accessKey=Lg52XqLLk8BxcVkT_lDGRlcPncjCISgM&',
+});
+
 
 module.exports = class {
     static register(req, res, next) {
@@ -76,11 +82,37 @@ module.exports = class {
                     email: user.email
                 }
 
-                let token = jwt.generateToken(payload)
+                let token = generateToken(payload)
                 res.status(200).json(token)
             })
             .catch(err => {
                 res.status(500).json(err)
             })
+    }
+
+    static changePassword(req, res, next){
+        let { email, password, newPassword } = req.body
+        User
+            .findOne({
+                where: {
+                    email: email
+                }
+            })
+            .then(user => {
+                if(user && bcrypt.compareSync(password, user.password)){
+                    let hash = bcrypt.hashSync(newPassword, 10);
+                    newPassword = hash
+
+                    return user.update({
+                        password: newPassword
+                    })
+                } else {
+                    throw createError(404, 'User not found')
+                }
+            })
+            .then(patched => {
+                res.status(200).json(patched)
+            })
+            .catch(next)
     }
 }
