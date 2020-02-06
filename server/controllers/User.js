@@ -5,11 +5,6 @@ const { generateToken } = require('../helpers/jwt')
 const axios = require('axios')
 // console.log(User)
 
-const stockNews = axios.create({
-    baseURL: 'https://api.unibit.ai/v2/company/news?accessKey=Lg52XqLLk8BxcVkT_lDGRlcPncjCISgM&',
-});
-
-
 module.exports = class {
     static register(req, res, next) {
         let { email, password, name } = req.body
@@ -27,8 +22,8 @@ module.exports = class {
                     return User.create({ email, password, name })
                 }
             })
-            .then(created => {
-                res.status(201).json(created)
+            .then(({ name, email }) => {
+                res.status(201).json({ name, email })
             })
             .catch(next)
     }
@@ -49,10 +44,10 @@ module.exports = class {
                         email: user.email
                     }
 
-                    let token = helper.generateToken(result)
-                    res.status(200).json({ token })
+                    let token = generateToken(result)
+                    res.status(200).json({ email:user.email, token })
                 } else {
-                    next(createError(404, 'Incorrect Username or Password'))
+                    next(createError(400, 'Incorrect Username or Password'))
                 }
             })
             .catch(next)
@@ -83,7 +78,7 @@ module.exports = class {
                 }
 
                 let token = generateToken(payload)
-                res.status(200).json(token)
+                res.status(200).json({ email:user.email, token })
             })
             .catch(err => {
                 res.status(500).json(err)
@@ -107,11 +102,11 @@ module.exports = class {
                         password: newPassword
                     })
                 } else {
-                    throw createError(404, 'User not found')
+                    throw createError(400, 'Incorrect Username or Password')
                 }
             })
-            .then(patched => {
-                res.status(200).json(patched)
+            .then(({ name, email }) => {
+                res.status(200).json({ name, email })
             })
             .catch(next)
     }
