@@ -91,12 +91,21 @@ module.exports = class {
             })
     }
 
-    static findNews(req, res, next){
-        stockNews
-            .get(`tickers=AAPL`)
-            .then(result => {
-                console.log(result)
-                res.status(200).json(result)
+    static changePassword(req, res, next){
+        let { email, password } = req.body
+        User
+            .findOne({
+                where: {
+                    email: email
+                }
             })
+            .then(user => {
+                if(user && bcrypt.compareSync(password, user.password)){
+
+                } else {
+                    next(createError(404, 'User not found'))
+                }
+            })
+            .catch(next)
     }
 }

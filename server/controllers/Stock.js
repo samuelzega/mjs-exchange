@@ -76,6 +76,19 @@ class Stock {
 
   }
 
+  static findNews(req, res, next){
+    let ticker = req.query.tickers
+
+    const options = {
+        url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=10`,
+        method: 'GET'
+    }
+    axios(options)
+    .then(response => {
+        res.send(response.data)
+    })
+    .catch(next)
+}
 }
 
 module.exports = Stock
