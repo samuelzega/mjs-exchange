@@ -97,8 +97,10 @@ class Stock {
 
   static findNews(req, res, next) {
     let ticker = req.query.tickers
-
+    // query inserted from search client
+    // console.log(ticker)
     const options = {
+<<<<<<< HEAD
       url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=10`,
       method: 'GET'
     }
@@ -107,6 +109,16 @@ class Stock {
         res.send(response.data)
       })
       .catch(next)
+=======
+        url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=5`,
+        method: 'GET'
+    }
+    axios(options)
+    .then(response => {
+        res.status(200).json(response.data)
+    })
+    .catch(next)
+>>>>>>> 8ce11840b3d584ff7bd0a58ead6286b23cbe78f3
   }
 
   static getSingleFavoriteData(req, res, next) {
@@ -139,6 +151,7 @@ class Stock {
       })
   }
 
+<<<<<<< HEAD
   static getTopCurrencies(req, res, next) {
     //get live currency data
     const live = {
@@ -161,7 +174,21 @@ class Stock {
       .catch(next)
   }
 
+=======
+  static getLatestNews(req, res, next){
+    const options = {
+      method: 'GET',
+      url: `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.TRENDING_NEWS}&category=business&pageSize=15`,
+    }
+    // console.log(options)
+    axios(options)
+    .then(response => {
+>>>>>>> 8ce11840b3d584ff7bd0a58ead6286b23cbe78f3
 
+      res.status(200).json(response.data)
+    })
+    .catch(next)
+  }
 }
 
 module.exports = Stock

@@ -9,10 +9,11 @@
   - [Usage](#usage)
   - [List of Routes User](#list-of-routes-user)
   - [List of Errors](#list-of-errors)
-  - **Endpoints**
+  - **User Endpoints**
     - [Login](#post-login)
     - [Register](#post-register)
     - [Change Password](#patch-change-password)
+
 ------
 
 #### **Base URL :** `http://localhost:3000`
@@ -41,7 +42,7 @@ Run code below on `client` directory to initiate `client` host
 $ live-server --host=localhost
 ```
 
-#### **List of Routes User:**
+#### **List of User Routes:**
 
 | **Route**        | **HTTP** | **Description**                                     |
 | ---------------- | -------- | --------------------------------------------------- |
@@ -49,6 +50,15 @@ $ live-server --host=localhost
 | /login           | POST     | Log in and get an access token based on credentials |
 | /google/login    | POST     | Sign in with OAuth 2.0 Google                       |
 | /change-password | PATCH    | Assign new password for user                        |
+
+### **List of Stock Routes:**
+
+| **Route**    | **HTTP** | **Description**                                |
+| ------------ | -------- | ---------------------------------------------- |
+| /mostactive  | GET      | Retrieve highest trading volume list of stocks |
+| /mostgainer  | GET      | Retrieve top gaining stocks                    |
+| /search      | GET      | Filter stocks profile based on stocks          |
+| /profile/:id | GET      | Fetch details of stocks company                |
 
 #### **List of Errors:**
 
