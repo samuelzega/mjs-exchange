@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
     <link href="https://fonts.googleapis.com/css?family=Kelly+Slab&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
-    <meta name="google-signin-client_id" content="855106300119-moegk921r35io8uvb5393i9t4v9ii0ot.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+        content="855106300119-moegk921r35io8uvb5393i9t4v9ii0ot.apps.googleusercontent.com">
 </head>
 
 <body>
-  
     <!-- login -->
     <!-- ------------------- -->
 
@@ -154,22 +155,22 @@
 
     <!-- landingPage -->
     <div id="landingPage" class="landingPage">
-        <video autoplay muted loop>
+        <video id="videoBackground" autoplay muted loop>
             <source src="src/coverr-close-up-shot-of-three-dollars-1579775848963.mp4" type="video/mp4">
         </video>
 
         <div class="content">
             <p style="margin-top: 25vh; font-family: 'Kelly Slab', cursive; font-size: xx-large;">Mjs-Exchange</p>
             <div class="menuInline">
-                <span class="cursorNya">
+                <span id="newsLanding" class="cursorNya">
                     <i class="fas fa-newspaper fa-5x"></i>
                     <h5>News</h5>
                 </span>
-                <span class="cursorNya">
+                <span id="stockLanding" class="cursorNya">
                     <i class="fas fa-chart-line fa-5x"></i>
                     <h5>Stock</h5>
                 </span>
-                <span class="cursorNya">
+                <span id="moneyLanding" class="cursorNya">
                     <i class="fas fa-dollar-sign fa-5x"></i>
                     <h5>Money</h5>
                 </span>
@@ -177,21 +178,49 @@
         </div>
 
 
-        <div id="registerCard" class="card registerCard">
-            <div class="card-body">
+        <div id="registerCard" class="card registerCard animated fadeInRight delay-2s">
+            <!-- logincard -->
+            <div id="loginForm" class="card-body animated flipInY delay-0s">
                 <h5 class="card-title">Login</h5>
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="loginEmail">Email address</label>
+                        <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" class="form-control" id="loginPassword">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button id="btnLogin" type="submit" class="btn btn-primary">Login</button>
                 </form>
-                <h6>Dont Have Any Account? Register Here</h6>
+                <br>
+                <h6 onclick="showRegisterForm()" id="login2register" style="color: white; cursor: pointer;">Dont Have
+                    Any Account? Register Here</h6>
+            </div>
+
+            <!-- registercard -->
+            <div id="registerForm" class="card-body animated flipInY delay-0s">
+                <h5 class="card-title">Register</h5>
+                <form>
+                    <div class="form-group">
+                        <label for="regisName">Name</label>
+                        <input type="text" class="form-control" id="regisName" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="regisEmail">Email address</label>
+                        <input type="email" class="form-control" id="regisEmail" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="regisPassword">Password</label>
+                        <input type="password" class="form-control" id="regisPassword">
+                    </div>
+                    <button id="btnRegister" type="submit" class="btn btn-primary">Register</button>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <a href="#" onclick="signOut();">Sign out</a>
+                </form>
+                <br>
+                <h6 onclick="showLoginForm()" id="login2register" style="color: white; cursor: pointer;">Already have an
+                    account? Register Here</h6>
             </div>
         </div>
 
@@ -202,11 +231,11 @@
 
         <!-- currency -->
         <div class="row currency mt-3">
-            
+
         </div>
 
         <!-- sotck most active gainer -->
-        
+
         <div class="row mt-3">
             <div class="col-6 border">
                 <table class="table table-hover">
@@ -214,7 +243,7 @@
                         <th colspan=3>Most gainer</th>
                     </thead>
                     <tbody id="most-gainer-table">
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -224,7 +253,7 @@
                         <th colspan=3>Most active</th>
                     </thead>
                     <tbody id="most-active-table">
-                      
+
                     </tbody>
                 </table>
             </div>
@@ -240,6 +269,7 @@
 
         <div class="row mt-3">
             <div class="col-12" id="news-section">
+              
             </div>
         </div>
 
@@ -249,17 +279,18 @@
     <!-- <a href="#" onclick="signOut();">Sign out</a> -->
 
 </body>
-<script src="./js/googleLogin.js"></script>
+<script src="js/googleLogin.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="js/samuel.js"></script>
 <script src="js/jovi.js"></script>
-
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
 
 </html>
