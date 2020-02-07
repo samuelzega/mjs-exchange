@@ -96,14 +96,15 @@ class Stock {
 
   static findNews(req, res, next){
     let ticker = req.query.tickers
-
+    // query inserted from search client
+    // console.log(ticker)
     const options = {
-        url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=10`,
+        url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=5`,
         method: 'GET'
     }
     axios(options)
     .then(response => {
-        res.send(response.data)
+        res.status(200).json(response.data)
     })
     .catch(next)
   }
@@ -138,7 +139,19 @@ class Stock {
       })
   }
 
+  static getLatestNews(req, res, next){
+    const options = {
+      method: 'GET',
+      url: `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.TRENDING_NEWS}&category=business&pageSize=15`,
+    }
+    // console.log(options)
+    axios(options)
+    .then(response => {
 
+      res.status(200).json(response.data)
+    })
+    .catch(next)
+  }
 }
 
 module.exports = Stock
