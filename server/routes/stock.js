@@ -8,7 +8,7 @@ router.get('/mostactive', Stock.getMostActiveStock)
 router.get('/mostgainer', Stock.getMostGainerStock)
 router.get('/search', Stock.searchStock)
 router.get('/profile/:id', Stock.getStockProfile)
-
+router.get('/topcurrencies', Stock.getTopCurrencies)
 
 router.use(auth)
 router.use(isUserExist)

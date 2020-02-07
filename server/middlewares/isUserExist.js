@@ -4,7 +4,7 @@ const { verify } = require('../helpers/jwt')
 
 module.exports = (req, res, next) => {
 
-    const id = verify(req.headers.token).user.id
+    const id = verify(req.headers.token).id
 
     User
         .findOne({

@@ -1,6 +1,7 @@
 const axios = require('axios')
 const { Favorite } = require('../models/index')
 const createError = require('http-errors')
+const formatCurrency = require('../helpers/currencyDetailFormat')
 
 
 class Stock {
@@ -94,20 +95,20 @@ class Stock {
       .catch(next)
   }
 
-  static findNews(req, res, next){
+  static findNews(req, res, next) {
     let ticker = req.query.tickers
 
     const options = {
-        url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=10`,
-        method: 'GET'
+      url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=10`,
+      method: 'GET'
     }
     axios(options)
-    .then(response => {
+      .then(response => {
         res.send(response.data)
-    })
-    .catch(next)
+      })
+      .catch(next)
   }
-  
+
   static getSingleFavoriteData(req, res, next) {
     Favorite
       .findByPk(req.params.id)
@@ -136,6 +137,28 @@ class Stock {
           res.status(200).json(data)
         }
       })
+  }
+
+  static getTopCurrencies(req, res, next) {
+    //get live currency data
+    const live = {
+      url: `http://apilayer.net/api/live?access_key=${process.env.CURRENCY_API_KEY}&currencies=${process.env.CURRENCY}&source=USD&format=1`,
+      method: 'GET',
+    }
+
+    //get currency details
+    const list = {
+      url: `http://api.currencylayer.com/list?access_key=${process.env.CURRENCY_API_KEY}`
+    }
+
+
+    axios(live)
+      .then(response => {
+        const liveCurrencies = formatCurrency(response.data.quotes)
+        res.status(200).json(liveCurrencies)
+
+      })
+      .catch(next)
   }
 
 
