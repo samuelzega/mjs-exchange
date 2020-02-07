@@ -198,9 +198,61 @@
     </div>
     <!-- ------------------- -->
 
+    <div id="homepage" class="container">
 
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="signOut();">Sign out</a>
+        <!-- currency -->
+        <div class="row currency mt-3">
+            <div class="card card-currency m-3 text-center shadow" style="width: 12rem;">
+                <div class="card-body">
+                  <h5 class="card-title">USD-AUD</h5>
+                  <h5 class="card-title">1.484109</h5>
+                </div>
+            </div>
+            <div class="card card-currency m-3 text-center shadow" style="width: 12rem;">
+                <div class="card-body">
+                  <h5 class="card-title">USD-AUD</h5>
+                  <h5 class="card-title">1.484109</h5>
+                </div>
+            </div>
+            <div class="card card-currency m-3 text-center shadow" style="width: 12rem;">
+                <div class="card-body">
+                  <h5 class="card-title">USD-AUD</h5>
+                  <h5 class="card-title">1.484109</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- sotck most active gainer -->
+        
+        <div class="row mt-3">
+            <div class="col-6 border">
+                <table class="table table-hover">
+                    <thead>
+                        <th colspan=3>Most gainer</th>
+                    </thead>
+                    <tbody id="most-gainer-table">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6 border">
+                <table class="table table-hover ml-2">
+                    <thead>
+                        <th colspan=3>Most active</th>
+                    </thead>
+                    <tbody id="most-active-table">
+                      
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+
+    </div>
+
+    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+    <!-- <a href="#" onclick="signOut();">Sign out</a> -->
 
 </body>
 <script src="./js/googleLogin.js"></script>
@@ -209,7 +261,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <script src="js/samuel.js"></script>
-
+<script src="js/jovi.js"></script>
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
