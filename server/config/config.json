@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "hacktiv8",
-    "password": "password",
+    "username": "postgres",
+    "password": "123456",
     "database": "mjs-exchange",
     "host": "127.0.0.1",
     "dialect": "postgres"
