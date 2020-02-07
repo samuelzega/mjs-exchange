@@ -13,7 +13,6 @@ module.exports = (req, res, next) => {
             }
         })
         .then(response => {
-            console.log(response)
             if (response == null) {
                 throw createError(404, { message: { error: `User Doesn't Exist!` } })
             } else {
