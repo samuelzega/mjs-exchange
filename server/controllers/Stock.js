@@ -100,16 +100,6 @@ class Stock {
     // query inserted from search client
     // console.log(ticker)
     const options = {
-<<<<<<< HEAD
-      url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=10`,
-      method: 'GET'
-    }
-    axios(options)
-      .then(response => {
-        res.send(response.data)
-      })
-      .catch(next)
-=======
         url: `https://api.unibit.ai/v2/company/news?tickers=${ticker}&accessKey=${process.env.API_KEY_NEWS}&size=5`,
         method: 'GET'
     }
@@ -118,7 +108,6 @@ class Stock {
         res.status(200).json(response.data)
     })
     .catch(next)
->>>>>>> 8ce11840b3d584ff7bd0a58ead6286b23cbe78f3
   }
 
   static getSingleFavoriteData(req, res, next) {
@@ -151,7 +140,6 @@ class Stock {
       })
   }
 
-<<<<<<< HEAD
   static getTopCurrencies(req, res, next) {
     //get live currency data
     const live = {
@@ -168,13 +156,13 @@ class Stock {
     axios(live)
       .then(response => {
         const liveCurrencies = formatCurrency(response.data.quotes)
+        console.log(liveCurrencies)
         res.status(200).json(liveCurrencies)
 
       })
       .catch(next)
   }
 
-=======
   static getLatestNews(req, res, next){
     const options = {
       method: 'GET',
@@ -183,7 +171,6 @@ class Stock {
     // console.log(options)
     axios(options)
     .then(response => {
->>>>>>> 8ce11840b3d584ff7bd0a58ead6286b23cbe78f3
 
       res.status(200).json(response.data)
     })
