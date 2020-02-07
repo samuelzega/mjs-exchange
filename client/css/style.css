@@ -64,3 +64,7 @@
   background-color: rgb(128, 116, 116, 0.9);
   height: 100%;
 }
+
+.card-currency:hover{
+  background-color: rgb(245, 245, 245);
+}
