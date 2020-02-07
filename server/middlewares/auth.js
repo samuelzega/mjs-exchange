@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     try {
         const token = req.headers.token
         const authData = verify(token)
-        req.user = authData.user
+        req.user = authData
         next()
     } catch (error) {
         next(createError(403, {
